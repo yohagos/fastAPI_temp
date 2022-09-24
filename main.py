@@ -1,10 +1,10 @@
-from typing import Union
+from typing import Optional, Union
 from fastapi import FastAPI
 
 app = FastAPI()
 
 @app.get("/")
-def index(limit, published):
+def index(limit=50, published: bool = True, sort: Optional[str] = None):
     if published:
         return {"data": f'{limit} published blogs from the db'}
     else:
@@ -19,7 +19,7 @@ def showBlogWithID(id: int):
     return { "data": id}
 
 @app.get("/blog/{id}/comments")
-def showComments(id):
+def showComments(id, limit=10):
     return {"data": {"1","2","3", "4"} }
 
 @app.get("/items/{item_id}")
