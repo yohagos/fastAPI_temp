@@ -1,5 +1,10 @@
 __pycache__
 .DS_STORE
+.vscode
 
 # Docker
 Docker-Compose.yaml
+
+# Database
+blog.db
+blogs.json
