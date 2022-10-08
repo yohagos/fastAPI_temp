@@ -1,3 +1,5 @@
+import email
+from unicodedata import name
 from fastapi import FastAPI, Depends, status, Response, HTTPException
 from . import schemas, models
 from .database import SessionLocal, engine
@@ -65,6 +67,14 @@ def get_All_BLogs(id, db: Session = Depends(get_db), response: Response = None):
     return blog
 
 
+@app.post("/user")
+def create_user(request: schemas.User, db: Session = Depends(get_db)):
+    new_user = models.User(name=request.name, email=request.email, password=request.password)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+    
 # #
-# # Stopped Video at 2:07:03
+# # Stopped Video at
 # #
