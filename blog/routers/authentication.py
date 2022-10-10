@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
 
 from .. import models
 from ..  import schemas, database
 from ..hashing import Hash
-from sqlalchemy.orm import Session
+from ..token import create_access_token
 
 router = APIRouter(
     tags=['Authentication']
@@ -20,4 +21,5 @@ def login(request: schemas.Login, db: Session = Depends(database.get_db)):
     if not Hash.verify_password(user.password, request.password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail=f'Incorrect password')
-    return 'login'
+    access_token = create_access_token( data={"sub": user.email} )
+    return {"access_token": access_token, "token_type": "bearer"}
