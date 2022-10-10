@@ -7,7 +7,7 @@ from ..database import get_db
 
 router = APIRouter(
     prefix='/user',
-    tags=['user']
+    tags=['Users']
 )
 
 @router.post('', response_model=schemas.ShowUser)

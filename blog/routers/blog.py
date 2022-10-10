@@ -7,7 +7,7 @@ from ..repo.blog import BlogRepo
 
 router = APIRouter(
     prefix='/blog',
-    tags=["blog"]
+    tags=["Blogs"]
 )
 
 @router.post('', status_code=status.HTTP_201_CREATED)
